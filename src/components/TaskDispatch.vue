@@ -2,15 +2,15 @@
   <div id="task-dispatch-window" style="padding: 20px;">
     <!-- Top Toolbar -->
     <div class="toolbar" style="margin-bottom: 20px;">
-      <el-button type="primary">数据源设置</el-button>
-      <el-button>添加任务</el-button>
+      <el-button @click="startDispatcherConfig">添加任务</el-button>
       <el-button>修改任务</el-button>
       <el-button type="danger">删除任务</el-button>
       <el-button>查看结果</el-button>
       <el-button type="success">确定</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="cancelDispatcherConfig">取消</el-button>
     </div>
 
+    <template v-if="config_mode === 'create'">
     <!-- Main Form -->
     <el-form
         :model="task"
@@ -82,7 +82,6 @@
         </el-form-item>
       </template>
 
-
       <el-form-item>
       <el-tree
         :data="form_tree"
@@ -113,7 +112,7 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-
+    </template>
     <!-- Task List Table -->
     <el-table :data="tasks" style="margin-top: 20px; width: 100%;">
       <el-table-column type="index" label="序号" width="60"></el-table-column>
@@ -124,10 +123,12 @@
   </div>
 </template>
 
+
 <script>
 export default {
   data() {
     return {
+      config_mode:"",
       weekdays: ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
       task: {
         name: "",
@@ -201,6 +202,12 @@ export default {
         customTimes: "",
       };
     },
+    startDispatcherConfig() {
+      this.config_mode = 'create';
+    },
+    cancelDispatcherConfig() {
+      this.config_mode = 'cancel';
+    }
   },
 };
 </script>
@@ -208,3 +215,5 @@ export default {
 <style>
 /* Add custom styles as needed */
 </style>
+<script setup lang="ts">
+</script>
